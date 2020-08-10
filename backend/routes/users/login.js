@@ -10,7 +10,7 @@ dotenv.config();
 const Users = require("../../models/users");
 
 //  Login Error message
-const inputError = "Incorrect email/password.";
+const inputError = "Invalid email/password.";
 
 //  Login REST API
 router.post("/", async (req, res) => {

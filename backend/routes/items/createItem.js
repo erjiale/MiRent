@@ -9,6 +9,15 @@ router.post("/", verify, async (req, res) => {
     name: req.body.name,
   });
   console.log(item);
+
+  try {
+    await item.save();
+    return res.send( item );
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error : `Server Issues` });
+  }
+
 });
 
 module.exports = router;

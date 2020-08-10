@@ -29,7 +29,7 @@ app.use("/api/login", loginRoute);
 
 // Routes --> Items
 app.use("/api/items", createItemRoute);
-app.use("/api/items", deleteItemRoute);
+// app.use("/api/items", deleteItemRoute);
 
 app.get("*", (req, res) => {
   res.send("Welcome to MiRent!");

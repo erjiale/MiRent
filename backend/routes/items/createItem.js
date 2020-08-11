@@ -8,7 +8,8 @@ router.post("/", verify, async (req, res) => {
     ownerId: req.user._id,
     name: req.body.name,
   });
-  // console.log(item);
+  console.log(item);
+
   try {
     await item.save();
     return res.send( item );
@@ -16,6 +17,7 @@ router.post("/", verify, async (req, res) => {
     console.log(err);
     return res.status(500).send({ error : `Server Issues` });
   }
+
 });
 
 module.exports = router;

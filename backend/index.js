@@ -13,7 +13,7 @@ const deleteRoute = require("./routes/users/delete");
 //  IMPORT Items Routes
 const createItemRoute = require("./routes/items/createItem");
 const deleteItemRoute = require("./routes/items/deleteItem");
-const updateItemRoute = require("./routes/items/updateItem");
+
 
 mongoose.connect(
   process.env.MONGODB_CONNECT,
@@ -29,13 +29,12 @@ app.use(express.json());
 
 // Routes --> Users
 app.use("/api/register", registerRoute);
-app.use("/api/login", loginRoute);
-app.use("/api/user", deleteRoute);
+app.use("/api/login",    loginRoute);
+app.use("/api/delete",   deleteRoute);
 
 // Routes --> Items
-app.use("/api/items", createItemRoute); // CREATE Item
-app.use("/api/items", deleteItemRoute); // DELETE Item
-app.use("/api/items", updateItemRoute); // UPDATE Item
+app.use("/api/items", createItemRoute);
+app.use("/api/items", deleteItemRoute);
 
 app.get("*", (req, res) => {
   res.send("Welcome to MiRent!");
@@ -44,3 +43,4 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+

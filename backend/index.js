@@ -5,11 +5,15 @@ const port = process.env.PORT || 8000;
 const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
-// IMPORT Routes
+
+//  IMPORT User Routes
 const registerRoute = require("./routes/users/register");
 const loginRoute = require("./routes/users/login");
+const deleteRoute = require("./routes/users/delete");
+//  IMPORT Items Routes
 const createItemRoute = require("./routes/items/createItem");
 const deleteItemRoute = require("./routes/items/deleteItem");
+
 
 mongoose.connect(
   process.env.MONGODB_CONNECT,
@@ -25,7 +29,8 @@ app.use(express.json());
 
 // Routes --> Users
 app.use("/api/register", registerRoute);
-app.use("/api/login", loginRoute);
+app.use("/api/login",    loginRoute);
+app.use("/api/delete",   deleteRoute);
 
 // Routes --> Items
 app.use("/api/items", createItemRoute);
@@ -38,5 +43,4 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
-// MONGODB_CONNECT = mongodb+srv://admin:adminpassword@mirent-obbuq.mongodb.net/test?retryWrites=true&w=majority
-// SECRET_TOKEN = jidajfvm94whq9n8uthmwsjm
+

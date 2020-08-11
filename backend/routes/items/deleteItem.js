@@ -13,16 +13,17 @@ const errors = {
 
 router.delete("/", verify, async (req, res) => {
     let creator_id = req.user._id;
-    let item_id = req.body._id;
-    let item = await Items.findOne({ item_id });
-
-    if(!item)
-        return res.status(400).send({ error: errors.type1 });
+    let item_id = req.body.id;
 
     try {
+        let item = await Items.findById({ _id : item_id });
+        console.log(item);
+        if(!item)
+            return res.status(400).send({ error: errors.type1 });
+    
         if(item.ownerId == creator_id){
-            await Items.findOneAndDelete( item_id );
-            return res.send({ message: `Deleted ${item_id}`});
+            await Items.findByIdAndDelete( item_id );
+            return res.send({ message: `Deleted`});
         }
         return res.status(500).send({ error : `No match but went through`});
     } catch (err) {

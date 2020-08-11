@@ -3,9 +3,10 @@ const router = require('express').Router();
 const mongoose = require('mongoose');
 //  Schema
 const Users = require('../../models/users')
+const Items = require('../../models/items')
 //  Function
 const verify = require('../verifyUser')
-
+//  Error handles
 const errors = {
     type1: "ID doesn't exist",
     type2: "Server Issue"
@@ -19,14 +20,16 @@ router.delete("/", verify, async (req, res) => {
     }
 
     try {
+        //  Deletes user
         await Users.deleteOne({ _id });
-        return res.send({ message : `Deleted user`});
+        //  Deletes past post from user
+        await Items.deleteMany({ ownerId: _id });
+        return res.send({ message : `Deleted`});
+        //  TODO: SHOW POP-UP and REDIRECT TO HOME SCREEN
     } catch (err) {
         console.log(err);
         return res.status(500).send({ error : errors.type2});
     }
-    //  TODO: DELETE POST FROM THE USERS
 });
-
 
 module.exports = router;

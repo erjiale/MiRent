@@ -13,6 +13,7 @@ const deleteRoute = require("./routes/users/delete");
 //  IMPORT Items Routes
 const createItemRoute = require("./routes/items/createItem");
 const deleteItemRoute = require("./routes/items/deleteItem");
+const updateItemRoute = require("./routes/items/updateItem");
 
 
 mongoose.connect(
@@ -35,6 +36,7 @@ app.use("/api/delete",   deleteRoute);
 // Routes --> Items
 app.use("/api/items", createItemRoute);
 app.use("/api/items", deleteItemRoute);
+app.use("/api/items/update", updateItemRoute);
 
 app.get("*", (req, res) => {
   res.send("Welcome to MiRent!");

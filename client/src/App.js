@@ -1,8 +1,25 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// REDUX
+import { Provider } from "react-redux";
+import store from "./redux/store";
+// Pages
+import home from "./pages/home";
+import login from "./pages/login";
 
 function App() {
-  return <div>MiRent</div>;
+  return (
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={home} />
+          <Route exact path="/login" component={login} />
+          {/* <Route exact path="/register" component={register} /> */}
+        </Switch>
+      </Router>
+    </Provider>
+  );
 }
 
 export default App;

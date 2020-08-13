@@ -6,11 +6,15 @@ const emailValidator = require("email-validator");
 
 router.post("/", async (req, res) => {
   if (!emailValidator.validate(req.body.email))
-    return res.status(400).send({ email: "Invalid format" });
+    return res.status(400).send({ error: "Email Invalid format" });
   if (req.body.username.length < 6)
-    return res.status(400).send({ username: "Must be at least 6 characters" });
+    return res
+      .status(400)
+      .send({ error: "Username Must be at least 6 characters" });
   if (req.body.password.length < 6)
-    return res.status(400).send({ password: "Must be at least 6 characters" });
+    return res
+      .status(400)
+      .send({ error: "Password Must be at least 6 characters" });
 
   let emailExist = await Users.findOne({
     email: req.body.email,

@@ -2,6 +2,7 @@ import {
   SET_USER,
   SET_ERRORS,
   CLEAR_ERRORS,
+  SET_CREATION,
   SET_UNAUTHENTICATED,
 } from "../types";
 import axios from "axios";
@@ -19,6 +20,23 @@ export const loginUser = (user, history) => (dispatch) => {
       dispatch({
         type: SET_USER,
         payload: decodedToken._id,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: SET_ERRORS,
+        payload: err.response.data,
+      });
+    });
+};
+
+export const registerUser = (user) => (dispatch) => {
+  axios
+    .post("/register", user)
+    .then((res) => {
+      dispatch({
+        type: SET_CREATION,
+        payload: "Succesfully created account",
       });
     })
     .catch((err) => {

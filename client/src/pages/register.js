@@ -1,14 +1,16 @@
+//  Libraries
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-// Redux
+//  Redux
 import { connect } from "react-redux";
-import { loginUser } from "../redux/actions/userActions";
+import { registerUser } from "../redux/actions/userActions";
 
-class login extends Component {
+class register extends Component {
   constructor() {
     super();
     this.state = {
       email: "",
+      username: "",
       password: "",
     };
   }
@@ -17,10 +19,12 @@ class login extends Component {
     event.preventDefault();
     const credentials = {
       email: this.state.email,
+      username: this.state.username,
       password: this.state.password,
     };
 
-    this.props.loginUser(credentials, this.props.history);
+    this.props.registerUser(credentials);
+    //  this.props.registerUser(credentials, this.props.history);
   };
 
   handleTextChange = (event) => {
@@ -34,15 +38,15 @@ class login extends Component {
   };
 
   render() {
-    const { email, password } = this.state;
+    const { email, username, password } = this.state;
     const { user } = this.props;
-
+    // console.log(this.props.user);
+    // console.log(user);
     return (
       <div>
-        {/* Logo here */}
-        <h2>Sign In</h2>
+        <h2>Create Your Account</h2>
         <form onSubmit={this.handleSubmit}>
-          <label>Email:</label>
+          <label>Email: </label>
           <br />
           <input
             type="text"
@@ -50,9 +54,17 @@ class login extends Component {
             value={email}
             onChange={this.handleTextChange}
           />
-          {/* {user.errors && user.errors.email ? <p>{user.errors.email}</p> : ""} */}
           <br />
-          <label>Password:</label>
+          <label>Username: </label>
+          <br />
+          <input
+            type="text"
+            name="username"
+            value={username}
+            onChange={this.handleTextChange}
+          />
+          <br />
+          <label>Password: </label>
           <br />
           <input
             onFocus={this.clearText}
@@ -63,7 +75,9 @@ class login extends Component {
           />
           <br />
           <button type="submit">Submit</button>
-          {/* {console.log(user)} */}
+          {user.message ? (
+            <p style={{ color: "green" }}>{user.message}</p>
+          ) : null}
           {user.errors ? (
             <p style={{ color: "red" }}>{user.errors.error}</p>
           ) : null}
@@ -78,7 +92,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-  loginUser,
+  registerUser,
 };
 
-export default withRouter(connect(mapStateToProps, mapActionsToProps)(login));
+export default withRouter(
+  connect(mapStateToProps, mapActionsToProps)(register)
+);

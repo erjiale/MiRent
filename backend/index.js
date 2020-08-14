@@ -31,7 +31,7 @@ app.use(express.json());
 // Routes --> Users
 app.use("/api/register", registerRoute);
 app.use("/api/login", loginRoute);
-app.use("/api/delete", deleteRoute);
+app.use("/api/user", deleteRoute);
 
 // Routes --> Items
 app.use("/api/items", createItemRoute);

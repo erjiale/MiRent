@@ -21,6 +21,7 @@ export const loginUser = (user, history) => (dispatch) => {
         type: SET_USER,
         payload: decodedToken._id,
       });
+      history.push("/");
     })
     .catch((err) => {
       dispatch({
@@ -30,7 +31,7 @@ export const loginUser = (user, history) => (dispatch) => {
     });
 };
 
-export const registerUser = (user) => (dispatch) => {
+export const registerUser = (user, history) => (dispatch) => {
   axios
     .post("/register", user)
     .then((res) => {
@@ -38,6 +39,7 @@ export const registerUser = (user) => (dispatch) => {
         type: SET_CREATION,
         payload: "Succesfully created account",
       });
+      history.push("/login");
     })
     .catch((err) => {
       dispatch({
@@ -53,6 +55,10 @@ export const logoutUser = () => (dispatch) => {
   dispatch({
     type: SET_UNAUTHENTICATED,
   });
+};
+
+export const deleteUser = () => (dispatch) => {
+  // axios.delete(`/user/${userID}`);
 };
 
 export const clearErrors = () => (dispatch) => {

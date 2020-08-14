@@ -1,32 +1,34 @@
 //  Libiaries
-const router = require('express').Router();
-const mongoose = require('mongoose');
+const router = require("express").Router();
+const mongoose = require("mongoose");
 //  Schema
-const Users = require('../../models/users')
+const Users = require("../../models/users");
 //  Function
-const verify = require('../verifyUser')
+const verify = require("../verifyUser");
 
 const errors = {
-    type1: "ID doesn't exist",
-    type2: "Server Issue"
-}
+  type1: "ID doesn't exist",
+  type2: "Server Issue",
+};
 
-router.delete("/", verify, async (req, res) => {
-    let _id = req.user._id; 
-    //  Confirms an id exist in database
-    if(!await Users.findById( _id )){
-        return res.status(400).send({ error : errors.type1});
-    }
+router.delete("/:uid", verify, async (req, res) => {
+  const id = req.params.uid;
+  const _id = req.user._id;
 
-    try {
-        await Users.deleteOne({ _id });
-        return res.send({ message : `Deleted user`});
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send({ error : errors.type2});
-    }
-    //  TODO: DELETE POST FROM THE USERS
+  //  Confirms an id exist in database
+  if (!(await Users.findById(_id))) {
+    return res.status(400).send({ error: errors.type1 });
+  }
+  if (id !== _id) return res.status(400).send({ error: "Not your account" });
+
+  try {
+    await Users.deleteOne({ _id });
+    return res.send({ message: `Deleted user` });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: errors.type2 });
+  }
+  //  TODO: DELETE POST FROM THE USERS
 });
-
 
 module.exports = router;

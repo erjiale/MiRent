@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 // Redux
 import { connect } from "react-redux";
 import { loginUser } from "../redux/actions/userActions";
@@ -39,8 +39,10 @@ class login extends Component {
 
     return (
       <div>
+        {user.authenticated ? <Redirect to="/" /> : null}
         {/* Logo here */}
         <h2>Sign In</h2>
+        {user.message ? <p style={{ color: "green" }}>{user.message}</p> : null}
         <form onSubmit={this.handleSubmit}>
           <label>Email:</label>
           <br />

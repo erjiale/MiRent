@@ -1,6 +1,6 @@
 //  Libraries
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 //  Redux
 import { connect } from "react-redux";
 import { registerUser } from "../redux/actions/userActions";
@@ -23,8 +23,7 @@ class register extends Component {
       password: this.state.password,
     };
 
-    this.props.registerUser(credentials);
-    //  this.props.registerUser(credentials, this.props.history);
+    this.props.registerUser(credentials, this.props.history);
   };
 
   handleTextChange = (event) => {
@@ -35,15 +34,18 @@ class register extends Component {
 
   clearText = (event) => {
     event.target.value = "";
+    this.setState({
+      [event.target.name]: "",
+    });
   };
 
   render() {
     const { email, username, password } = this.state;
     const { user } = this.props;
-    // console.log(this.props.user);
-    // console.log(user);
+
     return (
       <div>
+        {user.authenticated ? <Redirect to="/" /> : null}
         <h2>Create Your Account</h2>
         <form onSubmit={this.handleSubmit}>
           <label>Email: </label>
@@ -75,9 +77,6 @@ class register extends Component {
           />
           <br />
           <button type="submit">Submit</button>
-          {user.message ? (
-            <p style={{ color: "green" }}>{user.message}</p>
-          ) : null}
           {user.errors ? (
             <p style={{ color: "red" }}>{user.errors.error}</p>
           ) : null}

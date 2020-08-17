@@ -22,16 +22,16 @@ router.post("/", async (req, res) => {
   if (emailExist)
     return res.status(400).send({ error: "Email already exists" });
 
-  const salt = await bcrypt.genSalt(10);
-  const encryptPassword = await bcrypt.hash(req.body.password, salt);
-
-  let newUser = new Users({
-    email: req.body.email,
-    username: req.body.username,
-    password: encryptPassword,
-  });
-
   try {
+    const salt = await bcrypt.genSalt(10);
+    const encryptPassword = await bcrypt.hash(req.body.password, salt);
+
+    let newUser = new Users({
+      email: req.body.email,
+      username: req.body.username,
+      password: encryptPassword,
+    });
+
     await newUser.save();
     return res.send(newUser);
   } catch (err) {

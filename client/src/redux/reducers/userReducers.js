@@ -33,6 +33,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         errors: null,
+        messages: null,
       };
     case SET_CREATION:
       return {

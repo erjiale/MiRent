@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // Redux
 import { connect } from "react-redux";
-import { logoutUser, deleteUser } from "../redux/actions/userActions";
+import {
+  logoutUser,
+  deleteUser,
+  clearErrors,
+} from "../redux/actions/userActions";
 
 class Navbar extends Component {
   handleLogout = () => {
@@ -11,6 +15,10 @@ class Navbar extends Component {
 
   handleDeleteUser = () => {
     this.props.deleteUser();
+  };
+
+  handleClear = () => {
+    this.props.clearErrors();
   };
 
   render() {
@@ -33,10 +41,16 @@ class Navbar extends Component {
           ) : (
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <Link to="/login">Login</Link>
+                <Link onClick={this.handleClear} to="/login">
+                  Login
+                </Link>
               </li>
               <li>
-                <Link to="/register" className="ml-2 text-danger">
+                <Link
+                  onClick={this.handleClear}
+                  to="/register"
+                  className="ml-2 text-danger"
+                >
                   Create Account
                 </Link>
               </li>
@@ -54,6 +68,8 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   logoutUser,
+  deleteUser,
+  clearErrors,
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(Navbar);

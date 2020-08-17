@@ -59,6 +59,10 @@ export const logoutUser = () => (dispatch) => {
 
 export const deleteUser = () => (dispatch) => {
   // axios.delete(`/user/${userID}`);
+  const token = axios.defaults.headers.common["auth-token"];
+  console.log(token);
+
+  // dispatch(logoutUser());
 };
 
 export const clearErrors = () => (dispatch) => {

@@ -4,20 +4,21 @@ const verify = require("../verifyUser");
 const Items = require("../../models/items");
 
 router.post("/", verify, async (req, res) => {
+  //  Create new items
   const item = new Items({
     ownerId: req.user._id,
     name: req.body.name,
   });
-  console.log(item);
+  // console.log(item);
 
   try {
+    //  Save into mongoose
     await item.save();
-    return res.send( item );
+    return res.send(item);
   } catch (err) {
     console.log(err);
-    return res.status(500).send({ error : `Server Issues` });
+    return res.status(500).send({ error: `Server Issues` });
   }
-
 });
 
 module.exports = router;

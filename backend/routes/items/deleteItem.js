@@ -1,4 +1,4 @@
-//  Libaries 
+//  Libaries
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const verify = require("../verifyUser");
@@ -7,28 +7,30 @@ const verify = require("../verifyUser");
 const Items = require("../../models/items");
 
 const errors = {
-    type1: "ID doesn't exist",
-    type2: "Server Issue"
-}
+  type1: "ID doesn't exist",
+  type2: "Server Issue",
+};
 
-router.delete("/", verify, async (req, res) => {
-    let creator_id = req.user._id;
-    let item_id = req.body._id;
-    let item = await Items.findOne({ item_id });
+router.delete("/:iid", verify, async (req, res) => {
+  let creator_id = req.user._id;
+  let item_id = req.params.iid;
 
-    if(!item)
-        return res.status(400).send({ error: errors.type1 });
+  //  Check if item exist
+  let item = await Items.findById(item_id);
 
-    try {
-        if(item.ownerId == creator_id){
-            await Items.findOneAndDelete( item_id );
-            return res.send({ message: `Deleted ${item_id}`});
-        }
-        return res.status(500).send({ error : `No match but went through`});
-    } catch (err) {
-        console.log(err);
-        return res.status(500).send({ error : errors.type2 });
+  if (!item) return res.status(400).send({ error: errors.type1 });
+
+  try {
+    //  Confirm its the ownerrs item
+    if (item.ownerId !== creator_id) {
+      return res.status(400).send({ error: `Permission not allowed` });
     }
+    await Items.findByIdAndDelete(item_id);
+    return res.send({ message: `Deleted ${item_id}` });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send({ error: errors.type2 });
+  }
 });
 
 module.exports = router;

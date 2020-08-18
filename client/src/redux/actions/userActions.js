@@ -60,7 +60,20 @@ export const logoutUser = () => (dispatch) => {
 export const deleteUser = () => (dispatch) => {
   // axios.delete(`/user/${userID}`);
   const token = axios.defaults.headers.common["auth-token"];
-  console.log(token);
+  // console.log(token);
+  const userID = jwtDecode(token);
+  console.log(userID._id);
+  axios
+    .delete(`/user/${userID._id}`)
+    .then((res) => {
+      dispatch({
+        type: SET_UNAUTHENTICATED,
+      });
+    })
+    .catch((err) => {
+      //  space
+      console.log(err);
+    });
 
   // dispatch(logoutUser());
 };

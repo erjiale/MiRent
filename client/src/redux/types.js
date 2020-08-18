@@ -6,4 +6,4 @@ export const SET_ERRORS = "SET_ERRORS";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 // ITEMS Reducer Types
-export const GET_ITEMS = "GET_ITEMS";
+export const GET_ALL_ITEMS = "GET_ALL_ITEMS";

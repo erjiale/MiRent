@@ -12,18 +12,16 @@ const errors = {
   type2: "Server Issue",
 };
 
-router.delete("/:uid", verify, async (req, res) => {
-  const id = req.params.uid;
+router.delete("/", verify, async (req, res) => {
   const _id = req.user._id;
 
   //  Confirms an id exist in database
   if (!(await Users.findById(_id))) {
     return res.status(400).send({ error: errors.type1 });
   }
-  if (id !== _id)
-    return res.status(400).send({ error: "Permission denied: Not yours" });
 
   try {
+    // Delete the User and all of its Items
     await Users.deleteOne({ _id });
     await Items.deleteMany({ ownerId: _id });
     return res.send({ message: `Deleted user` });

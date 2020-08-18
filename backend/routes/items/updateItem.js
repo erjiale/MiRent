@@ -11,14 +11,15 @@ router.patch("/:iid", verify, async (req, res) => {
   let item_id = req.params.iid;
   let updatedName = req.body.name;
 
-  console.log(item_id);
+  // Check if Item EXISTS in the database
   let item = await Items.findOne({ _id: item_id });
-  console.log(item);
   if (!item) return res.status(400).send({ item: "Not found" });
 
   try {
+    //  Confirms that its the creator/owner of post
     if (item.ownerId !== creator_id)
       return res.status(400).send({ error: "Access denied!" });
+    // Updates the Item's Name
     await Items.findOneAndUpdate({ item_id }, { name: updatedName });
     return res.send({ message: `Updated ${item_id}` });
   } catch (err) {

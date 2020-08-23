@@ -38,7 +38,7 @@ class login extends Component {
     const { user } = this.props;
 
     return (
-      <div>
+      <div className="text-center">
         {user.authenticated ? <Redirect to="/" /> : null}
         {/* Logo here */}
         <h2>Sign In</h2>
@@ -64,7 +64,9 @@ class login extends Component {
             onChange={this.handleTextChange}
           />
           <br />
-          <button type="submit">Submit</button>
+          <button className="btn btn-dark color-white mt-3" type="submit">
+            LOGIN
+          </button>
           {/* {console.log(user)} */}
           {user.errors ? (
             <p style={{ color: "red" }}>{user.errors.error}</p>

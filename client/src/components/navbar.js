@@ -19,38 +19,63 @@ class Navbar extends Component {
     const { authenticated } = this.props;
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-light navbar-inverse navbar-styles">
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <Link to="/" className="navbar-brand">
-              MiRent
-            </Link>
-          </div>
-
-          {authenticated ? (
-            <div>
-              <button onClick={this.handleLogout}>Logout</button>
-              <DeleteUser />
-            </div>
-          ) : (
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <Link onClick={this.handleClear} to="/login">
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  onClick={this.handleClear}
-                  to="/register"
-                  className="ml-2 text-danger"
-                >
-                  Create Account
-                </Link>
-              </li>
-            </ul>
-          )}
+      <nav className="navbar" style={{ backgroundColor: "black" }}>
+        <div className="navbar-header">
+          <Link to="/" className="navbar-brand">
+            MiRent
+          </Link>
         </div>
+
+        {/* AUTHENTICATED */}
+        {authenticated ? (
+          <div className="nav navbar-right">
+            <DeleteUser />
+
+            {/* Toggle Menu */}
+            <div className="btn-group">
+              <button
+                type="button"
+                className="btn btn-secondary dropdown-toggle"
+                data-toggle="dropdown"
+              >
+                {/* GEAR icon */}
+                <i
+                  className="fa fa-cog"
+                  style={{ color: "white" }}
+                  aria-hidden="true"
+                ></i>
+              </button>
+              <div className="dropdown-menu dropdown-menu-right">
+                <button className="btn w-100" onClick={this.handleLogout}>
+                  <i className="fa fa-power-off" aria-hidden="true"></i>
+                  &nbsp;Logout
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          // NOT AUTHENTICATED
+          <ul className="nav navbar-right">
+            <li>
+              <Link
+                onClick={this.handleClear}
+                to="/login"
+                className="text-light"
+              >
+                Login
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={this.handleClear}
+                to="/register"
+                className="ml-2 text-danger text-light"
+              >
+                Create Account
+              </Link>
+            </li>
+          </ul>
+        )}
       </nav>
     );
   }

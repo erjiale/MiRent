@@ -12,29 +12,54 @@ class DeleteUser extends Component {
   render() {
     return (
       <div>
-        <button data-toggle="modal" data-target="#deleteModal">
-          Delete Account
+        <button
+          type="button"
+          className="btn text-danger"
+          data-toggle="modal"
+          data-target="#deleteModalBox"
+        >
+          <i
+            className="fa fa-trash"
+            style={{ color: "red" }}
+            aria-hidden="true"
+          ></i>
+          &nbsp;Delete Account
         </button>
 
-        <div className="modal" id="deleteModal">
-          <div className="modal-dialog">
+        <div
+          className="modal fade"
+          id="deleteModalBox"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="deleteModalBoxTitle"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">
+                <h5 className="modal-title" id="exampleModalLongTitle">
                   Confirm you want to delete this account.
-                </h4>
-                <button type="button" className="close" data-dismiss="modal">
-                  &times;
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-
               <div className="modal-footer">
-                <button className="btn btn-danger" data-dismiss="modal">
-                  Cancel
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-dismiss="modal"
+                >
+                  Close
                 </button>
                 <button
-                  className="btn btn-success"
-                  data-dismiss="modal"
+                  type="button"
+                  className="btn btn-info"
                   onClick={this.handleDelete}
                 >
                   Confirm

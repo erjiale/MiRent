@@ -2,19 +2,13 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // Redux
 import { connect } from "react-redux";
-import {
-  logoutUser,
-  deleteUser,
-  clearErrors,
-} from "../redux/actions/userActions";
+import { logoutUser, clearErrors } from "../redux/actions/userActions";
+// Components
+import DeleteUser from "../components/deleteUser";
 
 class Navbar extends Component {
   handleLogout = () => {
     this.props.logoutUser();
-  };
-
-  handleDeleteUser = () => {
-    this.props.deleteUser();
   };
 
   handleClear = () => {
@@ -36,7 +30,7 @@ class Navbar extends Component {
           {authenticated ? (
             <div>
               <button onClick={this.handleLogout}>Logout</button>
-              <button onClick={this.handleDeleteUser}>Delete Account</button>
+              <DeleteUser />
             </div>
           ) : (
             <ul className="nav navbar-nav navbar-right">
@@ -68,7 +62,6 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   logoutUser,
-  deleteUser,
   clearErrors,
 };
 

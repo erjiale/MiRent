@@ -7,3 +7,4 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 // ITEMS Reducer Types
 export const GET_ALL_ITEMS = "GET_ALL_ITEMS";
+export const CREATE_ITEM = "CREATE_ITEM";

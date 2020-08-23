@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { withRouter, Redirect } from "react-router-dom";
 // Redux
 import { connect } from "react-redux";
 import { getAllItems } from "../redux/actions/dataActions";
+// Components
+import CreateItem from "../components/items/create";
 
 class home extends Component {
   handleDisplay = (event) => {
@@ -15,35 +16,12 @@ class home extends Component {
     this.props.getAllItems();
   }
 
-  componentDidUpdate() {
-    this.props.getAllItems();
-  }
-
   render() {
-    const { authenticated, items } = this.props;
+    const { items, authenticated } = this.props;
 
     return (
-      <div>
-        {/* {authenticated ? (
-          <div>
-            <h2>actions</h2>
-            <ul>
-              <li>
-                <button value="list" onClick={this.handleDisplay}>
-                  List
-                </button>
-              </li>
-              <li>
-                <button value="post" onClick={this.handleDisplay}>
-                  Create Post
-                </button>
-              </li>
-            </ul>
-        <div id="container"></div>
-          </div>
-        ) : (
-          <p> othersaddasdsasadsda</p>
-        )} */}
+      <div className="container">
+        {authenticated ? <CreateItem /> : ""}
         {items.map((item) => (
           <p key={item._id}>{item.name}</p>
         ))}
@@ -53,8 +31,8 @@ class home extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  authenticated: state.user.authenticated,
   items: state.data.items,
+  authenticated: state.user.authenticated,
 });
 
 const mapActionsToProps = {

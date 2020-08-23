@@ -49,33 +49,23 @@ export const registerUser = (user, history) => (dispatch) => {
     });
 };
 
+export const deleteUser = () => (dispatch) => {
+  axios
+    .delete(`/user`)
+    .then(() => {
+      dispatch(logoutUser());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("token");
   delete axios.defaults.headers.common["auth-token"];
   dispatch({
     type: SET_UNAUTHENTICATED,
   });
-};
-
-export const deleteUser = () => (dispatch) => {
-  // axios.delete(`/user/${userID}`);
-  const token = axios.defaults.headers.common["auth-token"];
-  // console.log(token);
-  const userID = jwtDecode(token);
-  console.log(userID._id);
-  axios
-    .delete(`/user/${userID._id}`)
-    .then((res) => {
-      dispatch({
-        type: SET_UNAUTHENTICATED,
-      });
-    })
-    .catch((err) => {
-      //  space
-      console.log(err);
-    });
-
-  // dispatch(logoutUser());
 };
 
 export const clearErrors = () => (dispatch) => {

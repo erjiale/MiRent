@@ -24,6 +24,7 @@ class CreateItem extends Component {
     };
     this.props.createItem(item);
     document.getElementById("closeButton").click();
+    this.setState({ iteName: "" });
   };
 
   render() {
@@ -44,7 +45,7 @@ class CreateItem extends Component {
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
-                <h4 className="modal-title">Modal Heading</h4>
+                <h4 className="modal-title">Post a New Item</h4>
                 <button
                   id="closeButton"
                   type="button"
@@ -54,27 +55,41 @@ class CreateItem extends Component {
                   &times;
                 </button>
               </div>
-
-              <div className="modal-body">
-                <form onSubmit={this.handleSubmit}>
-                  <label htmlFor="itemName">Item being posted: </label>
-                  <input
-                    type="text"
-                    id="itemName"
-                    name="itemName"
-                    value={itemName}
-                    onChange={this.handleTextChange}
-                    required
-                  ></input>
-                  <button
-                    className="btn btn-primary"
-                    type="submit"
-                    // data-dismiss="modal"
+              <form>
+                <div className="form-group row m-2">
+                  <label
+                    htmlFor="inputPassword"
+                    className="col-sm-3 col-form-label"
                   >
-                    Post
-                  </button>
-                </form>
-              </div>
+                    Name
+                  </label>
+                  <div className="col-sm-9">
+                    <input
+                      type="text"
+                      id="itemName"
+                      name="itemName"
+                      value={itemName}
+                      onChange={this.handleTextChange}
+                      className="form-control"
+                      required
+                      className="form-control"
+                      placeholder="Item Name"
+                    />
+                  </div>
+                </div>
+              </form>
+              {/* <div className="modal-body">
+                <label htmlFor="itemName">Item name: </label>
+                <input
+                  type="text"
+                  id="itemName"
+                  name="itemName"
+                  value={itemName}
+                  onChange={this.handleTextChange}
+                  className="form-control"
+                  required
+                ></input>
+              </div> */}
 
               <div className="modal-footer center">
                 <button
@@ -83,6 +98,9 @@ class CreateItem extends Component {
                   data-dismiss="modal"
                 >
                   Cancel
+                </button>
+                <button className="btn btn-primary" onClick={this.handleSubmit}>
+                  Post
                 </button>
               </div>
             </div>

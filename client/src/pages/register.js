@@ -44,7 +44,7 @@ class register extends Component {
     const { user } = this.props;
 
     return (
-      <div>
+      <div className="text-center">
         {user.authenticated ? <Redirect to="/" /> : null}
         <h2>Create Your Account</h2>
         <form onSubmit={this.handleSubmit}>
@@ -76,7 +76,9 @@ class register extends Component {
             onChange={this.handleTextChange}
           />
           <br />
-          <button type="submit">Submit</button>
+          <button className="btn btn-dark color-white mt-3" type="submit">
+            REGISTER
+          </button>
           {user.errors ? (
             <p style={{ color: "red" }}>{user.errors.error}</p>
           ) : null}

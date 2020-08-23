@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllItems } from "../redux/actions/dataActions";
 // Components
-import CreateItem from "../components/items/create";
+import CreateItem from "../components/items/createItem";
 
 class home extends Component {
   handleDisplay = (event) => {

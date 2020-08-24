@@ -8,6 +8,11 @@ class DeleteUser extends Component {
     event.preventDefault();
     this.props.deleteUser();
   };
+  handleClick = (event) => {
+    event.preventDefault();
+    // document.getElementById("deleteModalBox").style.display = "flex";
+    // console.log(document.getElementsByClassName("modal"));
+  };
 
   render() {
     return (
@@ -17,6 +22,7 @@ class DeleteUser extends Component {
           className="btn text-danger"
           data-toggle="modal"
           data-target="#deleteModalBox"
+          onClick={this.handleClick}
         >
           <i
             className="fa fa-trash"

@@ -23,8 +23,9 @@ class CreateItem extends Component {
       name: this.state.itemName,
     };
     this.props.createItem(item);
+    this.setState({ itemName: "" });
     document.getElementById("closeButton").click();
-    this.setState({ iteName: "" });
+    // console.log(document.getElementById("closeButton"));
   };
 
   render() {
@@ -34,7 +35,7 @@ class CreateItem extends Component {
       <div>
         <button
           type="button"
-          className="btn btn-primary"
+          className="btn btn-primary my-2"
           data-toggle="modal"
           data-target="#createItemModal"
         >
@@ -72,25 +73,11 @@ class CreateItem extends Component {
                       onChange={this.handleTextChange}
                       className="form-control"
                       required
-                      className="form-control"
                       placeholder="Item Name"
                     />
                   </div>
                 </div>
               </form>
-              {/* <div className="modal-body">
-                <label htmlFor="itemName">Item name: </label>
-                <input
-                  type="text"
-                  id="itemName"
-                  name="itemName"
-                  value={itemName}
-                  onChange={this.handleTextChange}
-                  className="form-control"
-                  required
-                ></input>
-              </div> */}
-
               <div className="modal-footer center">
                 <button
                   type="button"

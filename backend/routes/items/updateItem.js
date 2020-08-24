@@ -12,7 +12,7 @@ router.patch("/:iid", verify, async (req, res) => {
   let updatedName = req.body.name;
 
   // Check if Item EXISTS in the database
-  let item = await Items.findOne({ _id: item_id });
+  let item = await Items.findById({ _id: item_id });
   if (!item) return res.status(400).send({ item: "Not found" });
 
   try {
@@ -20,8 +20,11 @@ router.patch("/:iid", verify, async (req, res) => {
     if (item.ownerId !== creator_id)
       return res.status(400).send({ error: "Access denied!" });
     // Updates the Item's Name
-    await Items.findOneAndUpdate({ item_id }, { name: updatedName });
-    return res.send({ message: `Updated ${item_id}` });
+    const updatedItem = await Items.findByIdAndUpdate(
+      { _id: item_id },
+      { name: updatedName }
+    );
+    return res.send(item_id);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ error: "Server error" });

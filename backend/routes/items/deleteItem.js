@@ -26,7 +26,7 @@ router.delete("/:iid", verify, async (req, res) => {
       return res.status(400).send({ error: `Permission not allowed` });
     }
     await Items.findByIdAndDelete(item_id);
-    return res.send({ message: `Deleted ${item_id}` });
+    return res.send(item_id);
   } catch (err) {
     console.log(err);
     return res.status(500).send({ error: errors.type2 });

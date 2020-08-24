@@ -4,6 +4,10 @@ import { connect } from "react-redux";
 import { getAllItems } from "../redux/actions/dataActions";
 // Components
 import CreateItem from "../components/items/createItem";
+import ItemCard from "../components/items/itemCard";
+//  Temporary Testing purposes
+
+//  End Testing
 
 class home extends Component {
   handleDisplay = (event) => {
@@ -23,7 +27,7 @@ class home extends Component {
       <div className="container">
         {authenticated ? <CreateItem /> : ""}
         {items.map((item) => (
-          <p key={item._id}>{item.name}</p>
+          <ItemCard item={item} key={item._id} />
         ))}
       </div>
     );

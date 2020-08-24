@@ -50,6 +50,7 @@ class Navbar extends Component {
                   <i className="fa fa-power-off" aria-hidden="true"></i>
                   &nbsp;Logout
                 </button>
+                {/* <DeleteUser /> */}
               </div>
             </div>
           </div>

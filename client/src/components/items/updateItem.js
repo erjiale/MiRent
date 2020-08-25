@@ -8,17 +8,18 @@ class UpdateItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemName: this.props.name,
+      itemName: "",
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.test = this.test.bind(this);
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
+  handleSubmit = () => {
     const payload = {
       name: this.state.itemName,
     };
-    // console.log(this.state.itemName);
-
+    console.log(this.props.id);
     this.props.updateItem(this.props.id, payload);
     this.setState({
       itemName: "",
@@ -27,13 +28,18 @@ class UpdateItem extends Component {
   };
 
   handleChange = (event) => {
+    console.log(`Change: ${this.props.id}`);
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
 
+  test = () => {
+    console.log(this.props.id);
+  };
   render() {
     const { itemName } = this.state;
+    const { items } = this.props;
 
     return (
       <div>
@@ -43,9 +49,9 @@ class UpdateItem extends Component {
             className="btn btn-warning"
             data-toggle="modal"
             data-target="#UpdateItemModal"
+            onClick={this.test}
           >
             <i className="fa fa-pencil" aria-hidden="true"></i>
-            &nbsp;
           </button>
 
           <div className="modal" id="UpdateItemModal">
@@ -76,6 +82,7 @@ class UpdateItem extends Component {
                         className="form-control"
                         required
                         placeholder="Item Name"
+                        min="5"
                       />
                     </div>
                   </div>
@@ -104,8 +111,12 @@ class UpdateItem extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  items: state.data.items,
+});
+
 const mapActionsToProps = {
   updateItem,
 };
 
-export default connect(null, mapActionsToProps)(UpdateItem);
+export default connect(mapStateToProps, mapActionsToProps)(UpdateItem);

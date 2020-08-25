@@ -28,9 +28,10 @@ export default function (state = initialState, action) {
         items: state.items.filter((item) => item._id !== action.payload),
       };
     case UPDATE_ITEM:
-      let index = state.items.findIndex(
+      const index = state.items.findIndex(
         (item) => item._id === action.payload.id
       );
+      // console.log(action.payload.id);
       state.items[index].name = action.payload.updatedName;
       return {
         ...state,

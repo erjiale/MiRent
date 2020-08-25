@@ -5,7 +5,11 @@ import { connect } from "react-redux";
 import { deleteItem } from "../../redux/actions/dataActions";
 
 class DeleteItem extends Component {
-  handleDelete = (event) => {
+  constructor(props) {
+    super(props);
+  }
+  handleDelete = () => {
+    console.log(this.props.id);
     this.props.deleteItem(this.props.id);
   };
 

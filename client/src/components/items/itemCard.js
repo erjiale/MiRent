@@ -8,17 +8,20 @@ import UpdateItem from "./updateItem";
 class itemCard extends Component {
   render() {
     const {
-      item: { name, _id, ownerId },
+      item: { _id, ownerId },
+      items,
       owner_id,
     } = this.props;
-
+    // console.log(_id);
+    const reduxItem = items.filter((item) => item._id === _id);
     return (
       <div className="bg-info text-light d-flex justify-content-center">
-        <p>{name}</p>
+        <p>{reduxItem[0].name}</p>
         {owner_id === ownerId ? (
           <div className="d-flex">
             <DeleteItem id={_id} />
-            <UpdateItem id={_id} name={name} />
+            <UpdateItem id={reduxItem[0]._id} />
+            {/* {console.log(_id)} */}
           </div>
         ) : null}
       </div>
@@ -28,6 +31,7 @@ class itemCard extends Component {
 
 const mapStateToProps = (state) => ({
   owner_id: state.user.user_id,
+  items: state.data.items,
 });
 
 export default connect(mapStateToProps, null)(itemCard);

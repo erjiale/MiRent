@@ -27,7 +27,7 @@ class home extends Component {
       <div className="container">
         {authenticated ? <CreateItem /> : ""}
         {items.map((item) => (
-          <ItemCard item={item} key={item._id} />
+          <ItemCard key={item._id} item={item} />
         ))}
       </div>
     );

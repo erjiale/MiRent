@@ -23,8 +23,8 @@
 1. Work on backend API routes
 
    - [x] Login/Register (USER)
-   - [ ] GET/POST/DELETE (ITEMS) 
+   - [x] GET/POST/DELETE/PATH (ITEMS) 
 
 2. Front-end:
-   - Set up React + Redux
+   - [x] Set up React + Redux
 

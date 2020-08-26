@@ -1,122 +1,95 @@
 import React, { Component } from "react";
-
 // Redux
 import { connect } from "react-redux";
 import { updateItem } from "../../redux/actions/dataActions";
+// REACT Bootstrap
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class UpdateItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemName: "",
+      show: false,
+      name: this.props.name,
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.test = this.test.bind(this);
   }
 
   handleSubmit = () => {
     const payload = {
-      name: this.state.itemName,
+      name: this.state.name,
     };
-    console.log(this.props.id);
     this.props.updateItem(this.props.id, payload);
     this.setState({
-      itemName: "",
+      show: false,
     });
-    document.getElementById("closeUpdateButton").click();
   };
 
   handleChange = (event) => {
-    console.log(`Change: ${this.props.id}`);
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
-
-  test = () => {
-    console.log(this.props.id);
+  handleShow = () => {
+    this.setState({
+      show: true,
+    });
   };
-  render() {
-    const { itemName } = this.state;
-    const { items } = this.props;
+  handleClose = () => {
+    this.setState({
+      show: false,
+      name: this.props.name,
+    });
+  };
 
+  render() {
+    const { show, name } = this.state;
     return (
       <div>
-        <div>
-          <button
-            type="button"
-            className="btn btn-warning"
-            data-toggle="modal"
-            data-target="#UpdateItemModal"
-            onClick={this.test}
-          >
-            <i className="fa fa-pencil" aria-hidden="true"></i>
-          </button>
+        <Button variant="warning" onClick={this.handleShow}>
+          <i className="fa fa-pencil" aria-hidden="true"></i>
+        </Button>
 
-          <div className="modal" id="UpdateItemModal">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h4 className="modal-title text-dark">Update Item</h4>
-                  <button
-                    id="closeUpdateButton"
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                  >
-                    &times;
-                  </button>
-                </div>
-                <form>
-                  <div className="form-group row m-2">
-                    <label className="col-sm-3 col-form-label text-dark">
-                      New Name:
-                    </label>
-                    <div className="col-sm-9">
-                      <input
-                        type="text"
-                        name="itemName"
-                        value={itemName}
-                        onChange={this.handleChange}
-                        className="form-control"
-                        required
-                        placeholder="Item Name"
-                        min="5"
-                      />
-                    </div>
-                  </div>
-                </form>
-                <div className="modal-footer center">
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    data-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    onClick={this.handleSubmit}
-                  >
-                    Update
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Modal show={show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Update Item</Modal.Title>
+          </Modal.Header>
+          <Container className="my-3">
+            <Row>
+              <Col sm="3">
+                <p className="pt-1 text-center">New Name:</p>
+              </Col>
+              <Col>
+                <Form.Control
+                  value={name}
+                  name="name"
+                  type="text"
+                  className="form-control"
+                  onChange={this.handleChange}
+                ></Form.Control>
+              </Col>
+            </Row>
+          </Container>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+            <Button variant="warning" onClick={this.handleSubmit}>
+              Update
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  items: state.data.items,
-});
-
 const mapActionsToProps = {
   updateItem,
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(UpdateItem);
+export default connect(null, mapActionsToProps)(UpdateItem);

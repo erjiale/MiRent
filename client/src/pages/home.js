@@ -3,19 +3,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllItems } from "../redux/actions/dataActions";
 // Components
-import CreateItem from "../components/items/createItem";
 import ItemCard from "../components/items/itemCard";
-//  Temporary Testing purposes
-
-//  End Testing
+// React Bootstrap
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class home extends Component {
-  handleDisplay = (event) => {
-    if (event.target.value === "list") {
-      console.log("hello");
-    }
-  };
-
   componentDidMount() {
     this.props.getAllItems();
   }
@@ -25,10 +19,15 @@ class home extends Component {
 
     return (
       <div className="container">
-        {authenticated ? <CreateItem /> : ""}
-        {items.map((item) => (
-          <ItemCard key={item._id} item={item} />
-        ))}
+        <Container>
+          <Row className="d-flex">
+            {items.map((item) => (
+              <Col sm="4" key={item._id}>
+                <ItemCard item={item} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
       </div>
     );
   }

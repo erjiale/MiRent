@@ -45,12 +45,9 @@ export const deleteItem = (itemId) => (dispatch) => {
 };
 
 export const updateItem = (itemId, updatedName) => (dispatch) => {
-  console.log(itemId);
-  console.log(updatedName);
   axios
     .patch(`/items/${itemId}`, updatedName)
     .then((res) => {
-      // console.log(res.data);
       dispatch({
         type: UPDATE_ITEM,
         payload: {

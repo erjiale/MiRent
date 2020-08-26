@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { logoutUser, clearErrors } from "../redux/actions/userActions";
 // Components
 import DeleteUser from "../components/deleteUser";
+import CreateItem from "../components/items/createItem";
 
 class Navbar extends Component {
   handleLogout = () => {
@@ -25,12 +26,11 @@ class Navbar extends Component {
             MiRent
           </Link>
         </div>
-
+        {authenticated ? <CreateItem /> : ""}
         {/* AUTHENTICATED */}
         {authenticated ? (
-          <div className="nav navbar-right">
-            <DeleteUser />
-
+          // <div className="nav navbar-right">
+          <div>
             {/* Toggle Menu */}
             <div className="btn-group">
               <button
@@ -45,12 +45,13 @@ class Navbar extends Component {
                   aria-hidden="true"
                 ></i>
               </button>
+              {/* Dropdown Items */}
               <div className="dropdown-menu dropdown-menu-right">
                 <button className="btn w-100" onClick={this.handleLogout}>
                   <i className="fa fa-power-off" aria-hidden="true"></i>
                   &nbsp;Logout
                 </button>
-                {/* <DeleteUser /> */}
+                <DeleteUser />
               </div>
             </div>
           </div>

@@ -19,7 +19,7 @@ export const loginUser = (user, history) => (dispatch) => {
       const decodedToken = jwtDecode(token);
       dispatch({
         type: SET_USER,
-        payload: decodedToken._id,
+        payload: decodedToken.username,
       });
       history.push("/");
     })

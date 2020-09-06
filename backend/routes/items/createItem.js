@@ -6,7 +6,7 @@ const Items = require("../../models/items");
 router.post("/", verify, async (req, res) => {
   //  Create new items
   const item = new Items({
-    ownerId: req.user._id,
+    ownerUsername: req.user.username,
     name: req.body.name,
   });
   // console.log(item);

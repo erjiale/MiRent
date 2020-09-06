@@ -10,7 +10,7 @@ import {
 const initialState = {
   authenticated: false,
   errors: null,
-  user_id: "",
+  username: "",
   message: "",
 };
 
@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         authenticated: true,
-        user_id: action.payload,
+        username: action.payload,
       };
     case SET_UNAUTHENTICATED:
       return initialState;

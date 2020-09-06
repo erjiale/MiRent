@@ -8,16 +8,17 @@ import UpdateItem from "./updateItem";
 class itemCard extends Component {
   render() {
     const {
-      item: { name, _id, ownerId },
+      item: { name, _id, ownerUsername },
       items,
-      owner_id,
+      username,
     } = this.props;
 
     const reduxItem = items.filter((item) => item._id === _id);
     return (
       <div className="p-4 my-2 bg-info text-light d-flex justify-content-center">
+        <p className="m-0 pt-1 mr-2 text-dark">{reduxItem[0].ownerUsername}</p>
         <p className="m-0 pt-1 mr-2">{reduxItem[0].name}</p>
-        {owner_id === ownerId ? (
+        {username === ownerUsername ? (
           <div className="d-flex">
             <DeleteItem id={_id} />
             <UpdateItem id={reduxItem[0]._id} name={name} />
@@ -29,7 +30,7 @@ class itemCard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  owner_id: state.user.user_id,
+  username: state.user.username,
   items: state.data.items,
 });
 

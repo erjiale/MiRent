@@ -12,7 +12,7 @@ const errors = {
 };
 
 router.delete("/:iid", verify, async (req, res) => {
-  let creator_id = req.user._id;
+  let creator_username = req.user.username;
   let item_id = req.params.iid;
 
   //  Check if item exist
@@ -22,7 +22,7 @@ router.delete("/:iid", verify, async (req, res) => {
 
   try {
     //  Confirm its the ownerrs item
-    if (item.ownerId !== creator_id) {
+    if (item.ownerUsername !== creator_username) {
       return res.status(400).send({ error: `Permission not allowed` });
     }
     await Items.findByIdAndDelete(item_id);

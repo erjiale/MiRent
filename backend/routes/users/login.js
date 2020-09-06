@@ -24,7 +24,13 @@ router.post("/", async (req, res) => {
   if (!account || !(await bcrypt.compare(pass, account.password))) {
     return res.status(400).send({ error: inputError });
   } else {
-    const token = jwt.sign({ _id: account._id }, process.env.SECRET_TOKEN);
+    const token = jwt.sign(
+      { username: account.username },
+      process.env.SECRET_TOKEN,
+      {
+        expiresIn: "1d",
+      }
+    );
     return res.header("auth-token", token).send({
       message: `Welcome to MiRent! ${account.username}`,
       token,

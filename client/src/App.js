@@ -25,7 +25,7 @@ if (token && token !== "undefined") {
     store.dispatch(logoutUser());
   } else {
     // authenticate user
-    store.dispatch({ type: SET_USER, payload: decodedToken._id });
+    store.dispatch({ type: SET_USER, payload: decodedToken.username });
   }
 }
 

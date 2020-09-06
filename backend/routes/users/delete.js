@@ -13,17 +13,17 @@ const errors = {
 };
 
 router.delete("/", verify, async (req, res) => {
-  const _id = req.user._id;
+  const { username } = req.user;
 
   //  Confirms an id exist in database
-  if (!(await Users.findById(_id))) {
+  if (!(await Users.findById(username))) {
     return res.status(400).send({ error: errors.type1 });
   }
 
   try {
     // Delete the User and all of its Items
-    await Users.deleteOne({ _id });
-    await Items.deleteMany({ ownerId: _id });
+    await Users.deleteOne({ username });
+    await Items.deleteMany({ ownerUsername: username });
     return res.send({ message: `Deleted user` });
   } catch (err) {
     console.log(err);

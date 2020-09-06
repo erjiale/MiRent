@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
 
 const Items = new mongoose.Schema({
-  ownerId: {
+  // ownerId: {
+  //   type: String,
+  //   require: true,
+  // },
+  ownerUsername: {
     type: String,
     require: true,
   },

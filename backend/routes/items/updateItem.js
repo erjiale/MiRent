@@ -7,7 +7,7 @@ const verify = require("../verifyUser");
 const Items = require("../../models/items");
 
 router.patch("/:iid", verify, async (req, res) => {
-  let creator_id = req.user._id;
+  let creator_username = req.user.username;
   let item_id = req.params.iid;
   let updatedName = req.body.name;
 
@@ -17,7 +17,7 @@ router.patch("/:iid", verify, async (req, res) => {
 
   try {
     //  Confirms that its the creator/owner of post
-    if (item.ownerId !== creator_id)
+    if (item.ownerUsername !== creator_username)
       return res.status(400).send({ error: "Access denied!" });
     // Updates the Item's Name
     const updatedItem = await Items.findByIdAndUpdate(
